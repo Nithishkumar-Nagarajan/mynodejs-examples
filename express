@@ -1,0 +1,57 @@
+const express=require("express");
+const app=express();
+ let arr=[];
+app.use(express.json()); 
+
+ app.post("/add",(req,res)=>{
+    
+
+            const store = req.body; 
+    arr.push(store);
+
+    res.json({ message: "Ok posted" }); 
+
+ })
+ 
+app.get("/msg",(req,res)=>{
+        res.json(arr); 
+
+})
+app.put("/upp", (req, res) => {
+    const store2 = req.body;
+    let found = false;
+
+    arr = arr.map(item => {
+        if (Number(item.id) === Number(store2.id)) {
+            found = true;
+            return { ...item, ...store2 };
+        }
+        return item;
+    });
+
+    if (!found) {
+        return res.status(404).json({ message: "ID not found" });
+    }
+
+    res.json({ message: "Ok Updated" });
+});
+app.delete("/clean", (req, res) => {
+const { id } = req.body;
+
+    const oldLength = arr.length;
+
+    arr = arr.filter(item => Number(item.id) !== Number(id));
+
+    if (arr.length === oldLength) {
+        return res.status(404).json({ message: "ID not found" });
+    }
+
+    res.json({ message: "Deleted successfully", arr });
+
+});
+
+
+
+app.listen(4800,()=>{
+console.log("Server started>>>>");
+});
