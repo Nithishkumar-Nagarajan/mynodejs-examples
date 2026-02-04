@@ -1,4 +1,4 @@
-const http = require("http");
+const http = require("http");//module--> we can import the files 
 
 let db = [];
 
@@ -17,16 +17,16 @@ const server = http.createServer((req, res) => {
       db.push(pdata);
       res.write(JSON.stringify({ message: "successfully added" }));
       res.end();
-    });
+    }); 
   }
 
   else if (req.method === "GET" && req.url === "/show") {
     res.write(JSON.stringify(db));
-    res.end();
+    res.end(); 
   }
 
   else if (req.method === "PUT" && req.url === "/update") {
-    let body1 = "";
+    let body1 = ""; 
 
     req.on("data", chunk => {
       body1 += chunk;
@@ -63,15 +63,15 @@ else if (req.method === "DELETE" && req.url === "/delete") {
       const pdata1 = JSON.parse(body1);
 
 
-     /* db=db.filter(item=>item.id!=pdata1.id);*/
+     db=db.filter(item=>item.id!=pdata1.id);
 
-db=db.map(item=>{
+/*db=db.map(item=>{
          if(item.id===pdata1.id){
           delete(item.age);
          }
          
          return item;
-     })
+     })*/
 
       res.write(JSON.stringify({ message: "deleted successfully" }));
       res.end();

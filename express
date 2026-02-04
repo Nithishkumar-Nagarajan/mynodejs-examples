@@ -17,7 +17,7 @@ app.get("/msg",(req,res)=>{
         res.json(arr); 
 
 })
-app.put("/upp", (req, res) => {
+app.put("/upp", (req, res) => { 
     const store2 = req.body;
     let found = false;
 
